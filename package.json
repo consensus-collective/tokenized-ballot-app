@@ -1,5 +1,5 @@
 {
-  "name": "hardhat-base-template",
+  "name": "tokenized-ballot-app",
   "packageManager": "yarn@3.6.1",
   "devDependencies": {
     "@nomicfoundation/hardhat-chai-matchers": "^2.0.0",
