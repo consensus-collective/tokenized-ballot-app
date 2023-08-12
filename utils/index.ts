@@ -8,9 +8,7 @@ export function logTransaction(hre: HardhatRuntimeEnvironment, txn: any): void {
       from: txn.from,
       to: txn.to,
       explorerURL:
-        hre.network.config.chainId === 31337
-          ? ""
-          : `https://${hre.network.name}.etherscan.io/tx/${txn.hash}`,
+        hre.network.config.chainId === 31337 ? "" : `https://${hre.network.name}.etherscan.io/tx/${txn.hash}`,
     });
   }
 }

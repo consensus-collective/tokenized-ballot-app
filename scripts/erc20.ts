@@ -8,11 +8,7 @@ export async function delegate(
   delegatee: AddressLike | undefined
 ): Promise<any> {
   const [signer] = await hre.ethers.getSigners();
-  const contract = await hre.ethers.getContractAt(
-    "MyToken",
-    contractAddress,
-    signer
-  );
+  const contract = await hre.ethers.getContractAt("MyToken", contractAddress, signer);
 
   const txn = await contract.delegate(delegatee ?? signer.address);
   await txn.wait(1);
@@ -27,11 +23,7 @@ export async function mint(
   amount: BigNumberish = hre.ethers.parseEther("10000")
 ) {
   const [signer] = await hre.ethers.getSigners();
-  const contract = await hre.ethers.getContractAt(
-    "MyToken",
-    contractAddress,
-    signer
-  );
+  const contract = await hre.ethers.getContractAt("MyToken", contractAddress, signer);
 
   const txn = await contract.mint(to ?? signer.address, amount);
   await txn.wait(1);
