@@ -59,6 +59,17 @@ $ npx hardhat delegate --network sepolia
 }
 ```
 
+3. Record (Deploy, Mint, Delegate, Vote, Winning Name, and Winning Vote Count)
+   `$ npx hardhat record [--network]`
+
+demo:
+
+```bash
+$ npx hardhat record --network sepolia
+```
+
+The [result](records.json) will be recorded at `records.json`s
+
 ## Test ang Coverage
 
 ```

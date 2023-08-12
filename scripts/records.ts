@@ -1,7 +1,8 @@
 import fs from "fs";
 
-import { ethers } from "hardhat";
+import { ethers } from "ethers";
 import { MyToken__factory, TokenizedBallot__factory } from "../typechain-types";
+import { HardhatRuntimeEnvironment } from "hardhat/types";
 
 enum Status {
   SUCCESS = "SUCCESS",
@@ -32,7 +33,11 @@ const RECORD = {
   winner: { name: "none", totalVote: "0" },
 };
 
-async function main() {
+export async function record(args: any, hre: HardhatRuntimeEnvironment) {
+  const { ethers, run } = hre;
+
+  await run("compile");
+
   const allAccounts = await ethers.getSigners();
   const accounts = allAccounts.slice(0, 3);
   const [deployer, account1, account2] = accounts;
@@ -355,8 +360,3 @@ async function main() {
   const records = JSON.stringify(RECORD, null, 2);
   fs.writeFileSync("records.json", records);
 }
-
-main().catch((err) => {
-  console.log(err);
-  process.exit(1);
-});
