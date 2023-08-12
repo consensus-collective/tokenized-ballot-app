@@ -1,0 +1,230 @@
+{
+  "network": "hardhat",
+  "receipts": [
+    {
+      "name": "mint",
+      "from": {
+        "name": "deployer",
+        "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+      },
+      "to": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+      "params": {
+        "account": {
+          "name": "deployer",
+          "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+        },
+        "amount": "1000000000000000000"
+      },
+      "hash": "0xb27f2127bc04ddca50cb852a93469a6d316cbd831bafd16b2f24665e94081534",
+      "blockNumber": 2,
+      "explorerURL": ""
+    },
+    {
+      "name": "mint",
+      "from": {
+        "name": "deployer",
+        "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+      },
+      "to": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+      "params": {
+        "account": {
+          "name": "account1",
+          "address": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+        },
+        "amount": "1000000000000000000"
+      },
+      "hash": "0xa6320966cfec54652029e760205a63d4c973eb02578a7aa29a6badb5d1ca12b8",
+      "blockNumber": 3,
+      "explorerURL": ""
+    },
+    {
+      "name": "mint",
+      "from": {
+        "name": "deployer",
+        "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+      },
+      "to": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+      "params": {
+        "account": {
+          "name": "account2",
+          "address": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC"
+        },
+        "amount": "1000000000000000000"
+      },
+      "hash": "0x6913d26c73cb1a0b7837979a7755610c8a26d956ebefa83118c494e3dd4c9d0b",
+      "blockNumber": 4,
+      "explorerURL": ""
+    },
+    {
+      "name": "delegate (self delegate)",
+      "from": {
+        "name": "deployer",
+        "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+      },
+      "to": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+      "params": {
+        "account": {
+          "name": "deployer",
+          "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+        }
+      },
+      "hash": "0xc5636e682bda1d77e007766ac299eb1442c602871b2f5673f3692831f4b6b84f",
+      "blockNumber": 5,
+      "explorerURL": ""
+    },
+    {
+      "name": "delegate (self delegate)",
+      "from": {
+        "name": "account1",
+        "address": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+      },
+      "to": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+      "params": {
+        "account": {
+          "name": "account1",
+          "address": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+        }
+      },
+      "hash": "0x23496bead90dde91f380faf585da794d3be2210c3f97df3e3703807c8723d63f",
+      "blockNumber": 6,
+      "explorerURL": ""
+    },
+    {
+      "name": "delegate (self delegate)",
+      "from": {
+        "name": "account2",
+        "address": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC"
+      },
+      "to": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+      "params": {
+        "account": {
+          "name": "account2",
+          "address": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC"
+        }
+      },
+      "hash": "0x347a5cc84cb3f32ce1e655780dae046ddb09c04bfa732cb1b6f7bbfaaf96ccac",
+      "blockNumber": 7,
+      "explorerURL": ""
+    },
+    {
+      "name": "delegate",
+      "from": {
+        "name": "account1",
+        "address": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+      },
+      "to": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+      "params": {
+        "account": {
+          "name": "account2",
+          "address": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC"
+        }
+      },
+      "hash": "0xb37b39b082764c2af2b13f545ad36960f4ae3de6dcc26a63ddd3378c477eba92",
+      "blockNumber": 8,
+      "explorerURL": ""
+    },
+    {
+      "name": "vote",
+      "from": {
+        "name": "deployer",
+        "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+      },
+      "to": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+      "params": {
+        "proposal": {
+          "name": "CAT",
+          "index": 0
+        },
+        "amount": "163000000000000000"
+      },
+      "hash": "0xa4617ffdde0172a5eca4b3f00cd29ee51b19a71f53d71fdc547e152edf2e0546",
+      "blockNumber": 10,
+      "explorerURL": ""
+    },
+    {
+      "name": "vote",
+      "from": {
+        "name": "deployer",
+        "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+      },
+      "to": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+      "params": {
+        "proposal": {
+          "name": "FISH",
+          "index": 1
+        },
+        "amount": "272000000000000000"
+      },
+      "hash": "0x92a4ad959d1d30388366587a5e6723a4ef673bee79cc97196ab506c30e8ca84f",
+      "blockNumber": 11,
+      "explorerURL": ""
+    },
+    {
+      "name": "vote",
+      "from": {
+        "name": "deployer",
+        "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+      },
+      "to": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+      "params": {
+        "proposal": {
+          "name": "DOG",
+          "index": 2
+        },
+        "amount": "99000000000000000"
+      },
+      "hash": "0xf1e514f42df306438dcd9fd76cf7dcb89333a00e954033a541f690f01c507dec",
+      "blockNumber": 12,
+      "explorerURL": ""
+    },
+    {
+      "name": "vote",
+      "from": {
+        "name": "account2",
+        "address": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC"
+      },
+      "to": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+      "params": {
+        "proposalIndex": 0,
+        "amount": "333333333333333333"
+      },
+      "hash": "0x39c5012edab8f9cf8739e1f03b6ea8181c20d38b87c4f4a4ca95c8e81d183fb0",
+      "blockNumber": 13,
+      "explorerURL": ""
+    },
+    {
+      "name": "vote",
+      "from": {
+        "name": "account2",
+        "address": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC"
+      },
+      "to": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+      "params": {
+        "proposalIndex": 1,
+        "amount": "333333333333333333"
+      },
+      "hash": "0x21f49113db0ea8db88f7e5c16c39ee6376aa658ac4e9e3749a555d99683f7a0b",
+      "blockNumber": 14,
+      "explorerURL": ""
+    },
+    {
+      "name": "vote",
+      "from": {
+        "name": "account2",
+        "address": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC"
+      },
+      "to": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+      "params": {
+        "proposalIndex": 2,
+        "amount": "333333333333333333"
+      },
+      "hash": "0x1b4f5516596c11f4c8ed13d0216e5d45e82db7c57eb5e7f4af641a1e91759cac",
+      "blockNumber": 15,
+      "explorerURL": ""
+    }
+  ],
+  "winner": {
+    "name": "FISH",
+    "totalVote": "605333333333333333"
+  }
+}
