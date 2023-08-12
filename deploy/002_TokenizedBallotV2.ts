@@ -12,15 +12,15 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     return ethers.encodeBytes32String("Proposal" + i);
   });
 
-  const result = await deploy("TokenizedBallot", {
+  const result = await deploy("TokenizedBallotV2", {
     from: deployer,
     args: [proposals, "0x42c9284864A50Ab5e9bE0c87220d829124Ff5d5A", 4068600],
     log: true,
     skipIfAlreadyDeployed: true,
   });
 
-  deployments.log(`Deployed TokenizedBallot: ${result.address}, Deployer: ${deployer}, network: ${hre.network.name}`);
+  deployments.log(`Deployed TokenizedBallotV2: ${result.address}, Deployer: ${deployer}, network: ${hre.network.name}`);
 };
 
 export default func;
-func.tags = ["TokenizedBallot"];
+func.tags = ["TokenizedBallotV2"];

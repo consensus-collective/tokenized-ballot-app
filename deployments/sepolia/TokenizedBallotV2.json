@@ -1,0 +1,464 @@
+{
+  "address": "0x7d2381a92ca84C59d7a94244C87B522dF54a94e0",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32[]",
+          "name": "proposalNames",
+          "type": "bytes32[]"
+        },
+        {
+          "internalType": "address",
+          "name": "_tokenContract",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_targetBlockNumber",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "sender",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "prevTargetBlock",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "newTargetBlock",
+          "type": "uint256"
+        }
+      ],
+      "name": "SetTargetBlock",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "sender",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "proposal",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "Vote",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "proposalCount",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "count",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "proposals",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "name",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "uint256",
+          "name": "voteCount",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "newBlockNumber",
+          "type": "uint256"
+        }
+      ],
+      "name": "setTargetBlockNumber",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "targetBlockNumber",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "tokenContract",
+      "outputs": [
+        {
+          "internalType": "contract IMyToken",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "proposal",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "vote",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "votingPower",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "votingPowerSpent",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "winnerName",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "winnerName_",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "winningProposal",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "winningProposal_",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x2ef4d9a4165389d0f07d8998050e7cc275db24abce1464e311c1b2b9cabfbe72",
+  "receipt": {
+    "to": null,
+    "from": "0xb66c6D8d96fAa683A4eb2Cb4b854f7bB2295e01E",
+    "contractAddress": "0x7d2381a92ca84C59d7a94244C87B522dF54a94e0",
+    "transactionIndex": 40,
+    "gasUsed": "865343",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000800000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000001000000000000000000000800000000000000020000000000000000000800000000020000000000000000000000400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000020001000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0xc13e2472346138a9087ed042d825fb1bdf28b8e81e260c298b366eb3e06557d3",
+    "transactionHash": "0x2ef4d9a4165389d0f07d8998050e7cc275db24abce1464e311c1b2b9cabfbe72",
+    "logs": [
+      {
+        "transactionIndex": 40,
+        "blockNumber": 4073788,
+        "transactionHash": "0x2ef4d9a4165389d0f07d8998050e7cc275db24abce1464e311c1b2b9cabfbe72",
+        "address": "0x7d2381a92ca84C59d7a94244C87B522dF54a94e0",
+        "topics": [
+          "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0",
+          "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "0x000000000000000000000000b66c6d8d96faa683a4eb2cb4b854f7bb2295e01e"
+        ],
+        "data": "0x",
+        "logIndex": 139,
+        "blockHash": "0xc13e2472346138a9087ed042d825fb1bdf28b8e81e260c298b366eb3e06557d3"
+      }
+    ],
+    "blockNumber": 4073788,
+    "cumulativeGasUsed": "18368352",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [
+    [
+      "0x50726f706f73616c300000000000000000000000000000000000000000000000",
+      "0x50726f706f73616c310000000000000000000000000000000000000000000000",
+      "0x50726f706f73616c320000000000000000000000000000000000000000000000",
+      "0x50726f706f73616c330000000000000000000000000000000000000000000000",
+      "0x50726f706f73616c340000000000000000000000000000000000000000000000",
+      "0x50726f706f73616c350000000000000000000000000000000000000000000000",
+      "0x50726f706f73616c360000000000000000000000000000000000000000000000",
+      "0x50726f706f73616c370000000000000000000000000000000000000000000000",
+      "0x50726f706f73616c380000000000000000000000000000000000000000000000",
+      "0x50726f706f73616c390000000000000000000000000000000000000000000000"
+    ],
+    "0x42c9284864A50Ab5e9bE0c87220d829124Ff5d5A",
+    4068600
+  ],
+  "numDeployments": 1,
+  "solcInputHash": "a79a899df00903ca4ec2fed5301f7ce0",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.21+commit.d9974bed\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"bytes32[]\",\"name\":\"proposalNames\",\"type\":\"bytes32[]\"},{\"internalType\":\"address\",\"name\":\"_tokenContract\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_targetBlockNumber\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"prevTargetBlock\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newTargetBlock\",\"type\":\"uint256\"}],\"name\":\"SetTargetBlock\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"proposal\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"Vote\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"proposalCount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"count\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"proposals\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"name\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"voteCount\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"newBlockNumber\",\"type\":\"uint256\"}],\"name\":\"setTargetBlockNumber\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"targetBlockNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"tokenContract\",\"outputs\":[{\"internalType\":\"contract IMyToken\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"proposal\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"vote\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"votingPower\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"votingPowerSpent\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"winnerName\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"winnerName_\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"winningProposal\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"winningProposal_\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{\"owner()\":{\"details\":\"Returns the address of the current owner.\"},\"renounceOwnership()\":{\"details\":\"Leaves the contract without owner. It will not be possible to call `onlyOwner` functions. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby disabling any functionality that is only available to the owner.\"},\"transferOwnership(address)\":{\"details\":\"Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.\"}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{\"constructor\":{\"notice\":\"Create a new ballot to choose one of `proposalNames`.\"}},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/TokenizedBallotV2.sol\":\"TokenizedBallotV2\"},\"evmVersion\":\"shanghai\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":99999},\"remappings\":[]},\"sources\":{\"@openzeppelin/contracts/access/Ownable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v4.9.0) (access/Ownable.sol)\\n\\npragma solidity ^0.8.0;\\n\\nimport \\\"../utils/Context.sol\\\";\\n\\n/**\\n * @dev Contract module which provides a basic access control mechanism, where\\n * there is an account (an owner) that can be granted exclusive access to\\n * specific functions.\\n *\\n * By default, the owner account will be the one that deploys the contract. This\\n * can later be changed with {transferOwnership}.\\n *\\n * This module is used through inheritance. It will make available the modifier\\n * `onlyOwner`, which can be applied to your functions to restrict their use to\\n * the owner.\\n */\\nabstract contract Ownable is Context {\\n    address private _owner;\\n\\n    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);\\n\\n    /**\\n     * @dev Initializes the contract setting the deployer as the initial owner.\\n     */\\n    constructor() {\\n        _transferOwnership(_msgSender());\\n    }\\n\\n    /**\\n     * @dev Throws if called by any account other than the owner.\\n     */\\n    modifier onlyOwner() {\\n        _checkOwner();\\n        _;\\n    }\\n\\n    /**\\n     * @dev Returns the address of the current owner.\\n     */\\n    function owner() public view virtual returns (address) {\\n        return _owner;\\n    }\\n\\n    /**\\n     * @dev Throws if the sender is not the owner.\\n     */\\n    function _checkOwner() internal view virtual {\\n        require(owner() == _msgSender(), \\\"Ownable: caller is not the owner\\\");\\n    }\\n\\n    /**\\n     * @dev Leaves the contract without owner. It will not be possible to call\\n     * `onlyOwner` functions. Can only be called by the current owner.\\n     *\\n     * NOTE: Renouncing ownership will leave the contract without an owner,\\n     * thereby disabling any functionality that is only available to the owner.\\n     */\\n    function renounceOwnership() public virtual onlyOwner {\\n        _transferOwnership(address(0));\\n    }\\n\\n    /**\\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\\n     * Can only be called by the current owner.\\n     */\\n    function transferOwnership(address newOwner) public virtual onlyOwner {\\n        require(newOwner != address(0), \\\"Ownable: new owner is the zero address\\\");\\n        _transferOwnership(newOwner);\\n    }\\n\\n    /**\\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\\n     * Internal function without access restriction.\\n     */\\n    function _transferOwnership(address newOwner) internal virtual {\\n        address oldOwner = _owner;\\n        _owner = newOwner;\\n        emit OwnershipTransferred(oldOwner, newOwner);\\n    }\\n}\\n\",\"keccak256\":\"0xba43b97fba0d32eb4254f6a5a297b39a19a247082a02d6e69349e071e2946218\",\"license\":\"MIT\"},\"@openzeppelin/contracts/utils/Context.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts v4.4.1 (utils/Context.sol)\\n\\npragma solidity ^0.8.0;\\n\\n/**\\n * @dev Provides information about the current execution context, including the\\n * sender of the transaction and its data. While these are generally available\\n * via msg.sender and msg.data, they should not be accessed in such a direct\\n * manner, since when dealing with meta-transactions the account sending and\\n * paying for execution may not be the actual sender (as far as an application\\n * is concerned).\\n *\\n * This contract is only required for intermediate, library-like contracts.\\n */\\nabstract contract Context {\\n    function _msgSender() internal view virtual returns (address) {\\n        return msg.sender;\\n    }\\n\\n    function _msgData() internal view virtual returns (bytes calldata) {\\n        return msg.data;\\n    }\\n}\\n\",\"keccak256\":\"0xe2e337e6dde9ef6b680e07338c493ebea1b5fd09b43424112868e9cc1706bca7\",\"license\":\"MIT\"},\"contracts/TokenizedBallotV2.sol\":{\"content\":\"// SPDX-License-Identifier: GPL-3.0\\npragma solidity >=0.7.0 <0.9.0;\\nimport \\\"@openzeppelin/contracts/access/Ownable.sol\\\";\\n/// @title Voting with delegation.\\n\\ninterface IMyToken {\\n    function getPastVotes(address, uint256) external view returns (uint256);\\n}\\n\\ncontract TokenizedBallotV2 is Ownable{\\n    struct Proposal {\\n        bytes32 name;\\n        uint voteCount;\\n    }\\n\\n    Proposal[] public proposals;\\n\\n    IMyToken public tokenContract;\\n\\n    uint256 public targetBlockNumber;\\n\\n    mapping(address => uint256) public votingPowerSpent;\\n\\n\\n    // events\\n    event SetTargetBlock(address indexed sender, uint256 prevTargetBlock, uint256 newTargetBlock);\\n    event Vote(address indexed sender, uint proposal, uint amount);\\n\\n    /// Create a new ballot to choose one of `proposalNames`.\\n    constructor(\\n        bytes32[] memory proposalNames,\\n        address _tokenContract,\\n        uint256 _targetBlockNumber\\n    ) {\\n        tokenContract = IMyToken(_tokenContract);\\n        targetBlockNumber = _targetBlockNumber;\\n\\n        for (uint i = 0; i < proposalNames.length; i++) {\\n            proposals.push(Proposal({name: proposalNames[i], voteCount: 0}));\\n        }\\n    }\\n\\n    function vote(uint proposal, uint amount) external {\\n        //todo\\n        // require voting power to be higher than amount\\n        // update the proposal vote count\\n        require(\\n            votingPower(msg.sender) >= amount,\\n            \\\"TokenizedBallot: trying to vote more than allowed\\\"\\n        );\\n        votingPowerSpent[msg.sender] += amount;\\n        proposals[proposal].voteCount += amount;\\n\\n        emit Vote(msg.sender, proposal, amount);\\n    }\\n\\n    function votingPower(address account) public view returns(uint256) {\\n        return (\\n            tokenContract.getPastVotes(account, targetBlockNumber) - votingPowerSpent[account]\\n        );\\n    }\\n\\n    function winningProposal() public view returns (uint winningProposal_) {\\n        uint winningVoteCount = 0;\\n        for (uint p = 0; p < proposals.length; p++) {\\n            if (proposals[p].voteCount > winningVoteCount) {\\n                winningVoteCount = proposals[p].voteCount;\\n                winningProposal_ = p;\\n            }\\n        }\\n    }\\n\\n    function winnerName() external view returns (bytes32 winnerName_) {\\n        winnerName_ = proposals[winningProposal()].name;\\n    }\\n\\n    // return total number of proposals\\n    function proposalCount() external view returns (uint count){\\n        count = proposals.length;\\n    }\\n\\n    function setTargetBlockNumber(uint256 newBlockNumber) external onlyOwner {\\n        uint256 prevTargetBlock = targetBlockNumber;\\n        targetBlockNumber = newBlockNumber;\\n\\n        emit SetTargetBlock(msg.sender, prevTargetBlock, newBlockNumber);\\n    }\\n}\\n\",\"keccak256\":\"0x962c14de5a4fa95fee2f0a682b232f85ea0854bf261d30363477745eda510049\",\"license\":\"GPL-3.0\"}},\"version\":1}",
+  "bytecode": "0x608060405234801561000f575f80fd5b50604051610ac3380380610ac383398101604081905261002e91610152565b610037336100d4565b600280546001600160a01b0319166001600160a01b03841617905560038190555f5b83518110156100cb576001604051806040016040528086848151811061008157610081610224565b60209081029190910181015182525f9181018290528354600181810186559483529181902083516002909302019182559190910151910155806100c381610238565b915050610059565b5050505061025c565b5f80546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b634e487b7160e01b5f52604160045260245ffd5b80516001600160a01b038116811461014d575f80fd5b919050565b5f805f60608486031215610164575f80fd5b83516001600160401b038082111561017a575f80fd5b818601915086601f83011261018d575f80fd5b81516020828211156101a1576101a1610123565b8160051b604051601f19603f830116810181811086821117156101c6576101c6610123565b60405292835281830193508481018201928a8411156101e3575f80fd5b948201945b83861015610201578551855294820194938201936101e8565b97506102109050888201610137565b955050505050604084015190509250925092565b634e487b7160e01b5f52603260045260245ffd5b5f6001820161025557634e487b7160e01b5f52601160045260245ffd5b5060010190565b61085a806102695f395ff3fe608060405234801561000f575f80fd5b50600436106100da575f3560e01c80638da5cb5b11610088578063c07473f611610063578063c07473f6146101db578063da35c664146101ee578063e2ba53f0146101f6578063f2fde38b146101fe575f80fd5b80638da5cb5b1461018c578063a7200351146101a9578063b384abef146101c8575f80fd5b806355a373d6116100b857806355a373d614610137578063609ff1bd1461017c578063715018a614610184575f80fd5b8063013cf08b146100de5780632a8cd29e1461010b57806332da83e814610122575b5f80fd5b6100f16100ec3660046106e5565b610211565b604080519283526020830191909152015b60405180910390f35b61011460035481565b604051908152602001610102565b6101356101303660046106e5565b61023d565b005b6002546101579073ffffffffffffffffffffffffffffffffffffffff1681565b60405173ffffffffffffffffffffffffffffffffffffffff9091168152602001610102565b61011461028d565b610135610305565b5f5473ffffffffffffffffffffffffffffffffffffffff16610157565b6101146101b73660046106fc565b60046020525f908152604090205481565b6101356101d6366004610736565b610318565b6101146101e93660046106fc565b610448565b600154610114565b61011461050b565b61013561020c3660046106fc565b61053a565b60018181548110610220575f80fd5b5f9182526020909120600290910201805460019091015490915082565b6102456105f1565b6003805490829055604080518281526020810184905233917f1f5a8589ca0ac927963c55508a0f73383f887bc4ad399b23e5fed4bb76bdc65791015b60405180910390a25050565b5f80805b6001548110156103005781600182815481106102af576102af610756565b905f5260205f2090600202016001015411156102ee57600181815481106102d8576102d8610756565b905f5260205f2090600202016001015491508092505b806102f8816107b0565b915050610291565b505090565b61030d6105f1565b6103165f610671565b565b8061032233610448565b10156103b5576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820152603160248201527f546f6b656e697a656442616c6c6f743a20747279696e6720746f20766f74652060448201527f6d6f7265207468616e20616c6c6f77656400000000000000000000000000000060648201526084015b60405180910390fd5b335f90815260046020526040812080548392906103d39084906107e7565b9250508190555080600183815481106103ee576103ee610756565b905f5260205f2090600202016001015f82825461040b91906107e7565b9091555050604080518381526020810183905233917fafd3f234c1f8e944129b26b206d98e5752ad3336a4059938b4a3e990e95885309101610281565b73ffffffffffffffffffffffffffffffffffffffff8181165f8181526004602081905260408083205460025460035492517f3a46b1a80000000000000000000000000000000000000000000000000000000081529384019590955260248301919091529193919290911690633a46b1a890604401602060405180830381865afa1580156104d7573d5f803e3d5ffd5b505050506040513d601f19601f820116820180604052508101906104fb91906107fa565b6105059190610811565b92915050565b5f600161051661028d565b8154811061052657610526610756565b905f5260205f2090600202015f0154905090565b6105426105f1565b73ffffffffffffffffffffffffffffffffffffffff81166105e5576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820152602660248201527f4f776e61626c653a206e6577206f776e657220697320746865207a65726f206160448201527f646472657373000000000000000000000000000000000000000000000000000060648201526084016103ac565b6105ee81610671565b50565b5f5473ffffffffffffffffffffffffffffffffffffffff163314610316576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657260448201526064016103ac565b5f805473ffffffffffffffffffffffffffffffffffffffff8381167fffffffffffffffffffffffff0000000000000000000000000000000000000000831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b5f602082840312156106f5575f80fd5b5035919050565b5f6020828403121561070c575f80fd5b813573ffffffffffffffffffffffffffffffffffffffff8116811461072f575f80fd5b9392505050565b5f8060408385031215610747575f80fd5b50508035926020909101359150565b7f4e487b71000000000000000000000000000000000000000000000000000000005f52603260045260245ffd5b7f4e487b71000000000000000000000000000000000000000000000000000000005f52601160045260245ffd5b5f7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff82036107e0576107e0610783565b5060010190565b8082018082111561050557610505610783565b5f6020828403121561080a575f80fd5b5051919050565b818103818111156105055761050561078356fea2646970667358221220477afa99aa79bc441d75d01483a45b2ea74087dd586b4c15b9d0b988939f17cb64736f6c63430008150033",
+  "deployedBytecode": "0x608060405234801561000f575f80fd5b50600436106100da575f3560e01c80638da5cb5b11610088578063c07473f611610063578063c07473f6146101db578063da35c664146101ee578063e2ba53f0146101f6578063f2fde38b146101fe575f80fd5b80638da5cb5b1461018c578063a7200351146101a9578063b384abef146101c8575f80fd5b806355a373d6116100b857806355a373d614610137578063609ff1bd1461017c578063715018a614610184575f80fd5b8063013cf08b146100de5780632a8cd29e1461010b57806332da83e814610122575b5f80fd5b6100f16100ec3660046106e5565b610211565b604080519283526020830191909152015b60405180910390f35b61011460035481565b604051908152602001610102565b6101356101303660046106e5565b61023d565b005b6002546101579073ffffffffffffffffffffffffffffffffffffffff1681565b60405173ffffffffffffffffffffffffffffffffffffffff9091168152602001610102565b61011461028d565b610135610305565b5f5473ffffffffffffffffffffffffffffffffffffffff16610157565b6101146101b73660046106fc565b60046020525f908152604090205481565b6101356101d6366004610736565b610318565b6101146101e93660046106fc565b610448565b600154610114565b61011461050b565b61013561020c3660046106fc565b61053a565b60018181548110610220575f80fd5b5f9182526020909120600290910201805460019091015490915082565b6102456105f1565b6003805490829055604080518281526020810184905233917f1f5a8589ca0ac927963c55508a0f73383f887bc4ad399b23e5fed4bb76bdc65791015b60405180910390a25050565b5f80805b6001548110156103005781600182815481106102af576102af610756565b905f5260205f2090600202016001015411156102ee57600181815481106102d8576102d8610756565b905f5260205f2090600202016001015491508092505b806102f8816107b0565b915050610291565b505090565b61030d6105f1565b6103165f610671565b565b8061032233610448565b10156103b5576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820152603160248201527f546f6b656e697a656442616c6c6f743a20747279696e6720746f20766f74652060448201527f6d6f7265207468616e20616c6c6f77656400000000000000000000000000000060648201526084015b60405180910390fd5b335f90815260046020526040812080548392906103d39084906107e7565b9250508190555080600183815481106103ee576103ee610756565b905f5260205f2090600202016001015f82825461040b91906107e7565b9091555050604080518381526020810183905233917fafd3f234c1f8e944129b26b206d98e5752ad3336a4059938b4a3e990e95885309101610281565b73ffffffffffffffffffffffffffffffffffffffff8181165f8181526004602081905260408083205460025460035492517f3a46b1a80000000000000000000000000000000000000000000000000000000081529384019590955260248301919091529193919290911690633a46b1a890604401602060405180830381865afa1580156104d7573d5f803e3d5ffd5b505050506040513d601f19601f820116820180604052508101906104fb91906107fa565b6105059190610811565b92915050565b5f600161051661028d565b8154811061052657610526610756565b905f5260205f2090600202015f0154905090565b6105426105f1565b73ffffffffffffffffffffffffffffffffffffffff81166105e5576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820152602660248201527f4f776e61626c653a206e6577206f776e657220697320746865207a65726f206160448201527f646472657373000000000000000000000000000000000000000000000000000060648201526084016103ac565b6105ee81610671565b50565b5f5473ffffffffffffffffffffffffffffffffffffffff163314610316576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657260448201526064016103ac565b5f805473ffffffffffffffffffffffffffffffffffffffff8381167fffffffffffffffffffffffff0000000000000000000000000000000000000000831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b5f602082840312156106f5575f80fd5b5035919050565b5f6020828403121561070c575f80fd5b813573ffffffffffffffffffffffffffffffffffffffff8116811461072f575f80fd5b9392505050565b5f8060408385031215610747575f80fd5b50508035926020909101359150565b7f4e487b71000000000000000000000000000000000000000000000000000000005f52603260045260245ffd5b7f4e487b71000000000000000000000000000000000000000000000000000000005f52601160045260245ffd5b5f7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff82036107e0576107e0610783565b5060010190565b8082018082111561050557610505610783565b5f6020828403121561080a575f80fd5b5051919050565b818103818111156105055761050561078356fea2646970667358221220477afa99aa79bc441d75d01483a45b2ea74087dd586b4c15b9d0b988939f17cb64736f6c63430008150033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {
+      "owner()": {
+        "details": "Returns the address of the current owner."
+      },
+      "renounceOwnership()": {
+        "details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby disabling any functionality that is only available to the owner."
+      },
+      "transferOwnership(address)": {
+        "details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
+      }
+    },
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {
+      "constructor": {
+        "notice": "Create a new ballot to choose one of `proposalNames`."
+      }
+    },
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 396,
+        "contract": "contracts/TokenizedBallotV2.sol:TokenizedBallotV2",
+        "label": "_owner",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_address"
+      },
+      {
+        "astId": 6373,
+        "contract": "contracts/TokenizedBallotV2.sol:TokenizedBallotV2",
+        "label": "proposals",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_array(t_struct(Proposal)6369_storage)dyn_storage"
+      },
+      {
+        "astId": 6376,
+        "contract": "contracts/TokenizedBallotV2.sol:TokenizedBallotV2",
+        "label": "tokenContract",
+        "offset": 0,
+        "slot": "2",
+        "type": "t_contract(IMyToken)6362"
+      },
+      {
+        "astId": 6378,
+        "contract": "contracts/TokenizedBallotV2.sol:TokenizedBallotV2",
+        "label": "targetBlockNumber",
+        "offset": 0,
+        "slot": "3",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 6382,
+        "contract": "contracts/TokenizedBallotV2.sol:TokenizedBallotV2",
+        "label": "votingPowerSpent",
+        "offset": 0,
+        "slot": "4",
+        "type": "t_mapping(t_address,t_uint256)"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_array(t_struct(Proposal)6369_storage)dyn_storage": {
+        "base": "t_struct(Proposal)6369_storage",
+        "encoding": "dynamic_array",
+        "label": "struct TokenizedBallotV2.Proposal[]",
+        "numberOfBytes": "32"
+      },
+      "t_bytes32": {
+        "encoding": "inplace",
+        "label": "bytes32",
+        "numberOfBytes": "32"
+      },
+      "t_contract(IMyToken)6362": {
+        "encoding": "inplace",
+        "label": "contract IMyToken",
+        "numberOfBytes": "20"
+      },
+      "t_mapping(t_address,t_uint256)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => uint256)",
+        "numberOfBytes": "32",
+        "value": "t_uint256"
+      },
+      "t_struct(Proposal)6369_storage": {
+        "encoding": "inplace",
+        "label": "struct TokenizedBallotV2.Proposal",
+        "members": [
+          {
+            "astId": 6366,
+            "contract": "contracts/TokenizedBallotV2.sol:TokenizedBallotV2",
+            "label": "name",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_bytes32"
+          },
+          {
+            "astId": 6368,
+            "contract": "contracts/TokenizedBallotV2.sol:TokenizedBallotV2",
+            "label": "voteCount",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_uint256"
+          }
+        ],
+        "numberOfBytes": "64"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}

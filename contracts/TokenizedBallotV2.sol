@@ -1,13 +1,13 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity >=0.7.0 <0.9.0;
-
+import "@openzeppelin/contracts/access/Ownable.sol";
 /// @title Voting with delegation.
 
 interface IMyToken {
     function getPastVotes(address, uint256) external view returns (uint256);
 }
 
-contract TokenizedBallot {
+contract TokenizedBallotV2 is Ownable{
     struct Proposal {
         bytes32 name;
         uint voteCount;
@@ -20,6 +20,11 @@ contract TokenizedBallot {
     uint256 public targetBlockNumber;
 
     mapping(address => uint256) public votingPowerSpent;
+
+
+    // events
+    event SetTargetBlock(address indexed sender, uint256 prevTargetBlock, uint256 newTargetBlock);
+    event Vote(address indexed sender, uint proposal, uint amount);
 
     /// Create a new ballot to choose one of `proposalNames`.
     constructor(
@@ -45,6 +50,8 @@ contract TokenizedBallot {
         );
         votingPowerSpent[msg.sender] += amount;
         proposals[proposal].voteCount += amount;
+
+        emit Vote(msg.sender, proposal, amount);
     }
 
     function votingPower(address account) public view returns(uint256) {
@@ -65,5 +72,17 @@ contract TokenizedBallot {
 
     function winnerName() external view returns (bytes32 winnerName_) {
         winnerName_ = proposals[winningProposal()].name;
+    }
+
+    // return total number of proposals
+    function proposalCount() external view returns (uint count){
+        count = proposals.length;
+    }
+
+    function setTargetBlockNumber(uint256 newBlockNumber) external onlyOwner {
+        uint256 prevTargetBlock = targetBlockNumber;
+        targetBlockNumber = newBlockNumber;
+
+        emit SetTargetBlock(msg.sender, prevTargetBlock, newBlockNumber);
     }
 }
