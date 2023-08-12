@@ -1,13 +1,13 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity >=0.7.0 <0.9.0;
-import "@openzeppelin/contracts/access/Ownable.sol";
+
 /// @title Voting with delegation.
 
 interface IMyToken {
     function getPastVotes(address, uint256) external view returns (uint256);
 }
 
-contract TokenizedBallot is Ownable{
+contract TokenizedBallot {
     struct Proposal {
         bytes32 name;
         uint voteCount;
@@ -65,10 +65,5 @@ contract TokenizedBallot is Ownable{
 
     function winnerName() external view returns (bytes32 winnerName_) {
         winnerName_ = proposals[winningProposal()].name;
-    }
-
-
-    function setTargetBlockNumber(uint256 newBlockNumber) external onlyOwner {
-        targetBlockNumber = newBlockNumber;
     }
 }
