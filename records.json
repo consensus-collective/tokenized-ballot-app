@@ -195,7 +195,10 @@
       },
       "to": "0x54346322023f663b1c1B77A704f5AD273Ca4AfBc",
       "params": {
-        "proposalIndex": 0,
+        "proposal": {
+          "name": "CAT",
+          "index": 0
+        },
         "amount": "666666666666666666"
       },
       "status": "SUCCESS",
@@ -211,7 +214,10 @@
       },
       "to": "0x54346322023f663b1c1B77A704f5AD273Ca4AfBc",
       "params": {
-        "proposalIndex": 1,
+        "proposal": {
+          "name": "FISH",
+          "index": 1 
+        },
         "amount": "666666666666666666"
       },
       "status": "SUCCESS",
@@ -227,7 +233,10 @@
       },
       "to": "0x54346322023f663b1c1B77A704f5AD273Ca4AfBc",
       "params": {
-        "proposalIndex": 2,
+        "proposal": {
+          "name": "DOG",
+          "index": 2
+        },
         "amount": "666666666666666666"
       },
       "status": "SUCCESS",

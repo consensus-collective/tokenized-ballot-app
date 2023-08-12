@@ -298,7 +298,7 @@ async function main() {
   // Rejected vote by account 1
   const votingPower1 = await ballotContract.votingPower(account1.address);
 
-  console.log(`Voting a random proposal...`);
+  console.log(`\nVoting a random proposal...`);
   console.log(`Voter: ${account1.address} (account1)`);
   console.log(`Voting Power: ${votingPower1.toString()} decimal units`);
 
