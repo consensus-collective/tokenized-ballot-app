@@ -3,10 +3,30 @@ import fs from "fs"
 import { ethers } from "hardhat"
 import { MyToken__factory, TokenizedBallot__factory } from "../typechain-types"
 
+enum Status {
+  SUCCESS = "SUCCESS",
+  FAILED = "FAILED",
+}
+
+interface Receipt {
+  name: string
+  from: {
+    name: string
+    address: string
+  }
+  to: string | null
+  params: any
+  status: Status
+  hash?: string
+  blockNumber?: number
+  explorerURL?: string
+  reason?: string
+}
+
 const PROPOSALS = ["CAT", "FISH", "DOG"]
 const MINT_VALUE = ethers.parseUnits("1")
-const RECEIPTS: any[] = []
-const HISTORY = {
+const RECEIPTS: Receipt[] = []
+const RECORD = {
   network: "localhost",
   receipts: RECEIPTS,
   winner: { name: "none", totalVote: "0" },
@@ -20,11 +40,11 @@ async function main() {
 
   console.log(`Running on network ${network.name}...\n`)
   console.log(`Total accounts: ${accounts.length}`)
-  console.log(`Deployer: ${deployer.address}`) 
+  console.log(`Deployer: ${deployer.address}`)
   console.log(`Account1: ${account1?.address}`)
   console.log(`Account2: ${account2?.address}\n`)
 
-  HISTORY.network = network.name
+  RECORD.network = network.name
 
   // Initiate contract factory
   const tokenFactory = new MyToken__factory(deployer)
@@ -46,30 +66,38 @@ async function main() {
   const mintingReceipts = await Promise.all(
     accounts.map(async (account, idx) => {
       const address = account.address
-      const mint = connectedContract.mint(address, MINT_VALUE)
-      const receipt = await mint.then((contract) => contract.wait())
-      if (!receipt) return null
       const accountName = idx === 0 ? "deployer" : `account${idx}`
-      const explorer =
-        network.name === "localhost" || network.name === "hardhat"
-          ? ""
-          : `https://${network.name}.etherscan.io/tx/${receipt.hash}`
-
-      return {
+      const mint = connectedContract.mint(address, MINT_VALUE)
+      const txReceipt = await mint.then((contract) => contract.wait()).catch((err: Error) => err.message)
+      const receipt: Receipt = {
         name: "mint",
         from: {
           name: "deployer",
-          address: receipt.from,
+          address: deployer.address,
         },
-        to: receipt.to,
+        to: tokenContractAddress,
         params: {
           account: { name: accountName, address },
           amount: MINT_VALUE.toString(),
         },
-        hash: receipt.hash,
-        blockNumber: receipt.blockNumber,
-        explorerURL: explorer,
+        status: Status.SUCCESS,
       }
+
+      if (typeof txReceipt === "string" || !txReceipt) {
+        receipt.status = Status.FAILED
+        receipt.reason = !txReceipt ? "Error" : txReceipt
+        return receipt
+      }
+
+      let explorer = ""
+      if (!(network.name === "localhost" || network.name === "hardhat")) {
+        explorer = `https://${network.name}.etherscan.io/tx/${txReceipt.hash}`
+      }
+
+      receipt.hash = txReceipt.hash
+      receipt.blockNumber = txReceipt.blockNumber
+      receipt.explorerURL = explorer
+      return receipt
     })
   )
 
@@ -83,30 +111,38 @@ async function main() {
   const delegateRecipt = await Promise.all(
     accounts.map(async (account, idx) => {
       const address = account.address
+      const accountName = idx === 0 ? "deployer" : `account${idx}`
       const connectedContract = tokenContract.connect(account)
       const delegate = connectedContract.delegate(address)
-      const receipt = await delegate.then((contract) => contract.wait())
-      if (!receipt) return null
-      const accountName = idx === 0 ? "deployer" : `account${idx}`
-      const explorer =
-        network.name === "localhost" || network.name === "hardhat"
-          ? ""
-          : `https://${network.name}.etherscan.io/tx/${receipt.hash}`
-
-      return {
+      const txReceipt = await delegate.then((contract) => contract.wait()).catch((error: Error) => error.message)
+      const receipt: Receipt = {
         name: "delegate (self delegate)",
         from: {
           name: accountName,
-          address: receipt.from,
+          address: account.address,
         },
-        to: receipt.to,
+        to: tokenContractAddress,
         params: {
           account: { name: accountName, address },
         },
-        hash: receipt.hash,
-        blockNumber: receipt.blockNumber,
-        explorerURL: explorer,
+        status: Status.SUCCESS,
       }
+
+      if (typeof txReceipt === "string" || !txReceipt) {
+        receipt.reason = !txReceipt ? "Error" : txReceipt
+        receipt.status = Status.FAILED
+        return receipt
+      }
+
+      let explorer = ""
+      if (!(network.name === "localhost" || network.name === "hardhat")) {
+        explorer = `https://${network.name}.etherscan.io/tx/${txReceipt.hash}`
+      }
+
+      receipt.hash = txReceipt.hash
+      receipt.blockNumber = txReceipt.blockNumber
+      receipt.explorerURL = explorer
+      return receipt
     })
   )
 
@@ -120,31 +156,39 @@ async function main() {
     console.log(`Voter: ${account1.address} (account1)`)
     console.log(`Delegator: ${account2.address} (account2)`)
 
-    const receipt = await tokenContract
+    const txReceipt = await tokenContract
       .connect(account1)
       .delegate(account2.address)
       .then((contract) => contract.wait())
+      .catch((error: Error) => error.message)
 
-    if (receipt) {
-      const explorer =
-        network.name === "localhost" || network.name === "hardhat"
-          ? ""
-          : `https://${network.name}.etherscan.io/tx/${receipt.hash}`
+    const receipt: Receipt = {
+      name: "delegate",
+      from: {
+        name: "account1",
+        address: account1.address,
+      },
+      to: tokenContractAddress,
+      params: {
+        account: { name: "account2", address: account2.address },
+      },
+      status: Status.SUCCESS,
+    }
 
-      RECEIPTS.push({
-        name: "delegate",
-        from: {
-          name: "account1",
-          address: receipt.from,
-        },
-        to: receipt.to,
-        params: {
-          account: { name: "account2", address: account2.address },
-        },
-        hash: receipt.hash,
-        blockNumber: receipt.blockNumber,
-        explorerURL: explorer,
-      })
+    if (typeof txReceipt === "string" || !txReceipt) {
+      receipt.status = Status.FAILED
+      receipt.reason = !txReceipt ? "Error" : txReceipt
+      RECEIPTS.push(receipt)
+    } else {
+      let explorer = ""
+      if (!(network.name === "localhost" || network.name === "hardhat")) {
+        explorer = `https://${network.name}.etherscan.io/tx/${txReceipt.hash}`
+      }
+
+      receipt.hash = txReceipt.hash
+      receipt.blockNumber = txReceipt.blockNumber
+      receipt.explorerURL = explorer
+      RECEIPTS.push(receipt)
     }
 
     console.log("Delegated!\n")
@@ -175,40 +219,51 @@ async function main() {
   let remaining = 1000n
   for (let i = 0; i < PROPOSALS.length; i++) {
     const proposalName = PROPOSALS[i]
-    
-    let random = BigInt(Math.floor((Math.random() / 2) * 1000))   
+
+    let random = BigInt(Math.floor((Math.random() / 2) * 1000))
     while (random > remaining) {
       random = BigInt(Math.floor((Math.random() / 2) * 1000))
     }
 
     const amount = (random * votingPower) / 1000n
-    const receipt = await ballotContract
+    const txReceipt = await ballotContract
       .connect(deployer)
       .vote(i, amount)
       .then((contract) => contract.wait())
+      .catch((error: Error) => error.message)
 
     remaining -= random
-    if (!receipt) continue
-    const explorer =
-      network.name === "localhost" || network.name === "hardhat"
-        ? ""
-        : `https://${network.name}.etherscan.io/tx/${receipt.hash}`
 
-    RECEIPTS.push({
+    const receipt: Receipt = {
       name: "vote",
       from: {
         name: "deployer",
-        address: receipt.from,
+        address: deployer.address,
       },
-      to: receipt.to,
+      to: ballotContractAddress,
       params: {
         proposal: { name: proposalName, index: i },
         amount: amount.toString(),
       },
-      hash: receipt.hash,
-      blockNumber: receipt.blockNumber,
-      explorerURL: explorer,
-    })
+      status: Status.SUCCESS,
+    }
+
+    if (typeof txReceipt === "string" || !txReceipt) {
+      receipt.status = Status.FAILED
+      receipt.reason = !txReceipt ? "Error" : txReceipt
+      RECEIPTS.push(receipt)
+      continue
+    }
+
+    let explorer = ""
+    if (!(network.name === "localhost" || network.name === "hardhat")) {
+      explorer = `https://${network.name}.etherscan.io/tx/${txReceipt.hash}`
+    }
+
+    receipt.hash = txReceipt.hash
+    receipt.blockNumber = txReceipt.blockNumber
+    receipt.explorerURL = explorer
+    RECEIPTS.push(receipt)
 
     console.log(`Voted ${proposalName} with ${amount} decimal units!`)
   }
@@ -224,36 +279,45 @@ async function main() {
     console.log(`Voting Power: ${votingPower} decimal units`)
 
     const total = BigInt(PROPOSALS.length)
-    const amount = MINT_VALUE / total
+    const amount = votingPower / total
 
     const receipts = await Promise.all(
       PROPOSALS.map(async (_, idx) => {
-        const receipt = await ballotContract
+        const txReceipt = await ballotContract
           .connect(account2)
           .vote(idx, amount)
           .then((contract) => contract.wait())
+          .catch((error: Error) => error.message)
 
-        if (!receipt) return null
-        const explorer =
-          network.name === "localhost" || network.name === "hardhat"
-            ? ""
-            : `https://${network.name}.etherscan.io/tx/${receipt.hash}`
-
-        return {
+        const receipt: Receipt = {
           name: "vote",
           from: {
             name: "account2",
-            address: receipt.from,
+            address: account2.address,
           },
-          to: receipt.to,
+          to: ballotContractAddress,
           params: {
             proposalIndex: idx,
             amount: amount.toString(),
           },
-          hash: receipt.hash,
-          blockNumber: receipt.blockNumber,
-          explorerURL: explorer,
+          status: Status.SUCCESS,
         }
+
+        if (typeof txReceipt === "string" || !txReceipt) {
+          receipt.status = Status.FAILED
+          receipt.reason = !txReceipt ? "Error" : txReceipt
+          return receipt
+        }
+
+        let explorer = ""
+        if (!(network.name === "localhost" || network.name === "hardhat")) {
+          explorer = `https://${network.name}.etherscan.io/tx/${txReceipt.hash}`
+        }
+
+        receipt.hash = txReceipt.hash
+        receipt.blockNumber = txReceipt.blockNumber
+        receipt.explorerURL = explorer
+        return receipt
       })
     )
 
@@ -262,6 +326,54 @@ async function main() {
     RECEIPTS.push(...receipts)
   }
 
+  // Rejected vote by account 1
+  const votingPower1 = await ballotContract.votingPower(account1.address)
+
+  console.log(`Voting a random proposal...`)
+  console.log(`Voter: ${account1.address} (account1)`)
+  console.log(`Voting Power: ${votingPower1.toString()} decimal units`)
+
+  const idx = Math.floor(Math.random() * PROPOSALS.length);
+  const txReceipt = await ballotContract
+    .connect(account1)
+    .vote(idx, MINT_VALUE)
+    .then((contract) => contract.wait())
+    .catch((error: Error) => error.message)
+
+  const receipt: Receipt = {
+    name: "vote",
+    from: {
+      name: "account1",
+      address: account1.address,
+    },
+    to: ballotContractAddress,
+    params: {
+      proposal: { name: PROPOSALS[idx], index: idx },
+      amount: MINT_VALUE.toString(),
+    },
+    status: Status.SUCCESS,
+  }
+
+  if (typeof txReceipt === "string" || !txReceipt) {
+    receipt.status = Status.FAILED
+    receipt.reason = !txReceipt ? "Error" : txReceipt
+    RECEIPTS.push(receipt)
+
+    console.log(`Vote ${PROPOSALS[idx]} with ${MINT_VALUE} decimal units is rejected!\n`)
+  } else {
+    let explorer = ""
+    if (!(network.name === "localhost" || network.name === "hardhat")) {
+      explorer = `https://${network.name}.etherscan.io/tx/${txReceipt.hash}`
+    }
+
+    receipt.hash = txReceipt.hash
+    receipt.blockNumber = txReceipt.blockNumber
+    receipt.explorerURL = explorer
+    RECEIPTS.push(receipt)
+
+    console.log(`Voted ${PROPOSALS[idx]} with ${MINT_VALUE} decimal units!\n`)
+  }
+    
   const winningProposal = await ballotContract.winningProposal()
   const proposal = await ballotContract.proposals(winningProposal)
 
@@ -270,16 +382,16 @@ async function main() {
     console.log("Winner:", winnerName)
     console.log("TotalVote:", proposal.voteCount.toString())
 
-    HISTORY.winner = {
+    RECORD.winner = {
       name: winnerName,
       totalVote: proposal.voteCount.toString(),
     }
   }
 
-  HISTORY.receipts = RECEIPTS
+  RECORD.receipts = RECEIPTS
 
-  const receipts = JSON.stringify(HISTORY, null, 2)
-  fs.writeFileSync("receipts.json", receipts)
+  const records = JSON.stringify(RECORD, null, 2)
+  fs.writeFileSync("records.json", records)
 }
 
 main().catch((err) => {
