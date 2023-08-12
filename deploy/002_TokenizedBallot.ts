@@ -19,9 +19,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     skipIfAlreadyDeployed: true,
   });
 
-  deployments.log(
-    `Deployed TokenizedBallot: ${result.address}, Deployer: ${deployer}, network: ${hre.network.name}`
-  );
+  deployments.log(`Deployed TokenizedBallot: ${result.address}, Deployer: ${deployer}, network: ${hre.network.name}`);
 };
 
 export default func;

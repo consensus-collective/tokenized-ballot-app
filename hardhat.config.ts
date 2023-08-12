@@ -14,7 +14,6 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-
 /**
  * @type import('hardhat/config').HardhatUserConfig
  */
@@ -124,4 +123,4 @@ config.gasReporter = {
   enabled: process.env.REPORT_GAS ? true : false,
 };
 
-export default config
+export default config;
