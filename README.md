@@ -1,48 +1,27 @@
-# hardhat-base-template
+# Homework 3 for Group 6
 
-Starter repo to create Hardhat projects. Includes Hardhat, Mocha, Chai
-
-## To create a Hardhat project with this template
-
-1. `git clone https://github.com/consensus-collective/hardhat-base-template`
-2. `yarn install`
-3. `yarn hardhat init`
-4. `yarn hardhat compile` : Check if tests compile
-
-## Libraries included:
-
-- hardhat
-- ethers
-- chai
-- typescript
-- ts-node
-- typechain
-- @nomicfoundation/hardhat-chai-matchers
-- @nomicfoundation/hardhat-ethers
-- @nomicfoundation/hardhat-network-helpers
-- @nomicfoundation/hardhat-toolbox
-- @nomicfoundation/hardhat-verify
-- @typechain/ethers-v6
-- @typechain/hardhat
-- @types/chai
-- @types/mocha
-- @types/node
-- hardhat-gas-reporter
-- solidity-coverage
-
-## Deployment
+## Deploy
 
 1. ERC20Votes
    `npx hardhat deploy --tags MyToken  --network sepolia`
 
-2. TokenizedBallot
-   `npx hardhat deploy --tags TokenizedBallot --network sepolia`
+2. TokenizedBallotV2
+   `npx hardhat deploy --tags TokenizedBallotV2 --network sepolia`
 
 ## Contract Address
 
 ERC20Votes: 0x42c9284864A50Ab5e9bE0c87220d829124Ff5d5A
 
-TokenizedBallot: to be deployed after everyone is delegated
+TokenizedBallotV2: 0x7d2381a92ca84C59d7a94244C87B522dF54a94e0
+
+## Changes
+
+We modified the `TokenizedBallot` contract as `TokenizedBallotV2` with following changes:
+
+- Integrated with Openzeppelin's `Ownable` contract.
+- Add view function `proposalCount` to get the total number of proposals
+- Add a `setTargetBlock` function s.t. the owner could change the `targetBlockNumber`
+- Add eventLogs for `vote` function
 
 ## Scripts
 
@@ -78,4 +57,21 @@ $ npx hardhat delegate --network sepolia
   to: '0x1453b498C84875C4cB73A8228Df393475b0535C1',
   explorerURL: 'https://sepolia.etherscan.io/tx/0x7789cdb736a881da0a8cb30833c811d61847482aa74ecc83ac65b99ba47cbc7e'
 }
+```
+
+## Test ang Coverage
+
+```
+------------------------|----------|----------|----------|----------|----------------|
+File                    |  % Stmts | % Branch |  % Funcs |  % Lines |Uncovered Lines |
+------------------------|----------|----------|----------|----------|----------------|
+ contracts/             |    82.61 |    64.29 |    77.78 |       80 |                |
+  MyToken.sol           |    83.33 |       50 |       80 |    83.33 |             41 |
+  TokenizedBallot.sol   |    57.14 |    33.33 |       50 |    53.33 |... 60,61,67,72 |
+  TokenizedBallotV2.sol |      100 |      100 |      100 |      100 |                |
+------------------------|----------|----------|----------|----------|----------------|
+All files               |    82.61 |    64.29 |    77.78 |       80 |                |
+------------------------|----------|----------|----------|----------|----------------|
+
+> Istanbul reports written to ./coverage/ and ./coverage.json
 ```
