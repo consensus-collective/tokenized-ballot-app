@@ -5,6 +5,10 @@ import { getContractOrDeployment } from "../utils/contract";
 import { delegate, mint } from "../scripts/erc20";
 import { AddressLike } from "../scripts/types";
 import { logTransaction } from "../utils";
+import { record } from "../scripts/records";
+
+task("record", "Running a complete tokenized ballot system")
+  .setAction(record)
 
 // Hardhat tasks for ERC20.delegate(delegatee)
 task("delegate", "Delegating to ERC20Votes contract")
