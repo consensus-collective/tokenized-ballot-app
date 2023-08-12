@@ -1,0 +1,260 @@
+{
+  "network": "localhost",
+  "receipts": [
+    {
+      "name": "mint",
+      "from": {
+        "name": "deployer",
+        "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+      },
+      "to": "0x82e01223d51Eb87e16A03E24687EDF0F294da6f1",
+      "params": {
+        "account": {
+          "name": "deployer",
+          "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+        },
+        "amount": "1000000000000000000"
+      },
+      "status": "SUCCESS",
+      "hash": "0x5667698e2aac82fe154484ad60be8b7cfb3bc81735289649943e025d0e9e658e",
+      "blockNumber": 95,
+      "explorerURL": ""
+    },
+    {
+      "name": "mint",
+      "from": {
+        "name": "deployer",
+        "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+      },
+      "to": "0x82e01223d51Eb87e16A03E24687EDF0F294da6f1",
+      "params": {
+        "account": {
+          "name": "account1",
+          "address": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+        },
+        "amount": "1000000000000000000"
+      },
+      "status": "SUCCESS",
+      "hash": "0x1adebe48ad5cd257b274f4334b06b88cf7bee4451287f7c5d598255d9abc84f0",
+      "blockNumber": 96,
+      "explorerURL": ""
+    },
+    {
+      "name": "mint",
+      "from": {
+        "name": "deployer",
+        "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+      },
+      "to": "0x82e01223d51Eb87e16A03E24687EDF0F294da6f1",
+      "params": {
+        "account": {
+          "name": "account2",
+          "address": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC"
+        },
+        "amount": "1000000000000000000"
+      },
+      "status": "SUCCESS",
+      "hash": "0x3c65b31a240ef28cffd06e2404bcaccb3fbd2db8213cc04e70a1bfc79064c225",
+      "blockNumber": 97,
+      "explorerURL": ""
+    },
+    {
+      "name": "delegate (self delegate)",
+      "from": {
+        "name": "deployer",
+        "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+      },
+      "to": "0x82e01223d51Eb87e16A03E24687EDF0F294da6f1",
+      "params": {
+        "account": {
+          "name": "deployer",
+          "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+        }
+      },
+      "status": "SUCCESS",
+      "hash": "0x96982e70c530a5943bd05b5c1c755c4a0058d550b151bf8e29a379231155fc8f",
+      "blockNumber": 98,
+      "explorerURL": ""
+    },
+    {
+      "name": "delegate (self delegate)",
+      "from": {
+        "name": "account1",
+        "address": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+      },
+      "to": "0x82e01223d51Eb87e16A03E24687EDF0F294da6f1",
+      "params": {
+        "account": {
+          "name": "account1",
+          "address": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+        }
+      },
+      "status": "SUCCESS",
+      "hash": "0x84a53109245131749bd1be7bc9a4f235acccb15a1d045170c8fa8063f591d824",
+      "blockNumber": 99,
+      "explorerURL": ""
+    },
+    {
+      "name": "delegate (self delegate)",
+      "from": {
+        "name": "account2",
+        "address": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC"
+      },
+      "to": "0x82e01223d51Eb87e16A03E24687EDF0F294da6f1",
+      "params": {
+        "account": {
+          "name": "account2",
+          "address": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC"
+        }
+      },
+      "status": "SUCCESS",
+      "hash": "0xce55a46d964aa9fd5654f9a6af7dd8a3625278bab01ce10491c6155ef330b315",
+      "blockNumber": 100,
+      "explorerURL": ""
+    },
+    {
+      "name": "delegate",
+      "from": {
+        "name": "account1",
+        "address": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+      },
+      "to": "0x82e01223d51Eb87e16A03E24687EDF0F294da6f1",
+      "params": {
+        "account": {
+          "name": "account2",
+          "address": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC"
+        }
+      },
+      "status": "SUCCESS",
+      "hash": "0x0526ff1a08dd1b1fce86d125e19be5cfb3b3c6ef4353c6bbb46cf5b8d5e4308e",
+      "blockNumber": 101,
+      "explorerURL": ""
+    },
+    {
+      "name": "vote",
+      "from": {
+        "name": "deployer",
+        "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+      },
+      "to": "0xFD471836031dc5108809D173A067e8486B9047A3",
+      "params": {
+        "proposal": {
+          "name": "CAT",
+          "index": 0
+        },
+        "amount": "254000000000000000"
+      },
+      "status": "SUCCESS",
+      "hash": "0xe3036cbacbe6280dab2ac62b015ef3f835d7f269c7791189e45b5a75608e4135",
+      "blockNumber": 103,
+      "explorerURL": ""
+    },
+    {
+      "name": "vote",
+      "from": {
+        "name": "deployer",
+        "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+      },
+      "to": "0xFD471836031dc5108809D173A067e8486B9047A3",
+      "params": {
+        "proposal": {
+          "name": "FISH",
+          "index": 1
+        },
+        "amount": "78000000000000000"
+      },
+      "status": "SUCCESS",
+      "hash": "0x795d402e30904a06be5bbaf41e97ca6fec2949458e85bb221b9db1d2fef1563c",
+      "blockNumber": 104,
+      "explorerURL": ""
+    },
+    {
+      "name": "vote",
+      "from": {
+        "name": "deployer",
+        "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+      },
+      "to": "0xFD471836031dc5108809D173A067e8486B9047A3",
+      "params": {
+        "proposal": {
+          "name": "DOG",
+          "index": 2
+        },
+        "amount": "237000000000000000"
+      },
+      "status": "SUCCESS",
+      "hash": "0x6d9f93beeac90775e0ca32e54d58c2916eb8d4a7936295fc1198f52697a1a478",
+      "blockNumber": 105,
+      "explorerURL": ""
+    },
+    {
+      "name": "vote",
+      "from": {
+        "name": "account2",
+        "address": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC"
+      },
+      "to": "0xFD471836031dc5108809D173A067e8486B9047A3",
+      "params": {
+        "proposalIndex": 0,
+        "amount": "666666666666666666"
+      },
+      "status": "SUCCESS",
+      "hash": "0x11a1d10662f823a43425885de0b0dd6fc3dce045b7e2e6cc4e674d53f9b05602",
+      "blockNumber": 106,
+      "explorerURL": ""
+    },
+    {
+      "name": "vote",
+      "from": {
+        "name": "account2",
+        "address": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC"
+      },
+      "to": "0xFD471836031dc5108809D173A067e8486B9047A3",
+      "params": {
+        "proposalIndex": 1,
+        "amount": "666666666666666666"
+      },
+      "status": "SUCCESS",
+      "hash": "0x14babe063d2eaa8f0fc0357c12197a43f66667fa3f07f04da10da4beb4c04324",
+      "blockNumber": 107,
+      "explorerURL": ""
+    },
+    {
+      "name": "vote",
+      "from": {
+        "name": "account2",
+        "address": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC"
+      },
+      "to": "0xFD471836031dc5108809D173A067e8486B9047A3",
+      "params": {
+        "proposalIndex": 2,
+        "amount": "666666666666666666"
+      },
+      "status": "SUCCESS",
+      "hash": "0x8a78c4bcb037bc73894bf632bc4355de874cb20dca7f627890f4d31a0b98658d",
+      "blockNumber": 108,
+      "explorerURL": ""
+    },
+    {
+      "name": "vote",
+      "from": {
+        "name": "account1",
+        "address": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+      },
+      "to": "0xFD471836031dc5108809D173A067e8486B9047A3",
+      "params": {
+        "proposal": {
+          "name": "DOG",
+          "index": 2
+        },
+        "amount": "1000000000000000000"
+      },
+      "status": "FAILED",
+      "reason": "Error: VM Exception while processing transaction: reverted with reason string 'TokenizedBallot: trying to vote more than allowed'"
+    }
+  ],
+  "winner": {
+    "name": "CAT",
+    "totalVote": "920666666666666666"
+  }
+}
