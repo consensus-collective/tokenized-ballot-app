@@ -14,6 +14,7 @@
     "@types/mocha": ">=9.1.0",
     "@types/node": ">=16.0.0",
     "chai": "^4.2.0",
+    "dotenv": "^16.3.1",
     "ethers": "^6.4.0",
     "hardhat": "^2.14.0",
     "hardhat-gas-reporter": "^1.0.8",
@@ -25,5 +26,15 @@
   "dependencies": {
     "@openzeppelin/contracts": "^4.9.3",
     "lodash": "^4.17.21"
+  },
+  "scripts": {
+    "compile": "hardhat compile",
+    "pretest": "yarn compile",
+    "test": "hardhat test",
+    "format": "prettier --write .",
+    "test:parallel": "hardhat test --parallel",
+    "test:bail": "hardhat test --bail --parallel",
+    "size": "hardhat size-contracts",
+    "coverage": "hardhat coverage"
   }
 }
