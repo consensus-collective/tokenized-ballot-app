@@ -59,7 +59,24 @@ $ npx hardhat delegate --network sepolia
 }
 ```
 
-3. Record (Deploy, Mint, Delegate, Vote, Winning Name, and Winning Vote Count)
+3. Vote
+   `$ npx hardhat vote [--signer] [--contract] [--proposal] [--amount] [--network]`
+
+demo:
+
+```bash
+$ npx hardhat vote --network sepolia
+
+{
+  hash: '0x7789cdb736a881da0a8cb30833c811d61847482aa74ecc83ac65b99ba47cbc7e',
+  block: null,
+  from: '0xb66c6D8d96fAa683A4eb2Cb4b854f7bB2295e01E',
+  to: '0x1453b498C84875C4cB73A8228Df393475b0535C1',
+  explorerURL: 'https://sepolia.etherscan.io/tx/0x7789cdb736a881da0a8cb30833c811d61847482aa74ecc83ac65b99ba47cbc7e'
+}
+```
+
+4. Record (Deploy, Mint, Delegate, Vote, Winning Name, and Winning Vote Count)
    `$ npx hardhat record [--network]`
 
 demo:

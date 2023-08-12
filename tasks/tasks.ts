@@ -6,9 +6,9 @@ import { delegate, mint } from "../scripts/erc20";
 import { AddressLike } from "../scripts/types";
 import { logTransaction } from "../utils";
 import { record } from "../scripts/records";
+import { vote } from "../scripts/tokenized-ballot";
 
-task("record", "Running a complete tokenized ballot system")
-  .setAction(record)
+task("record", "Running a complete tokenized ballot system").setAction(record);
 
 // Hardhat tasks for ERC20.delegate(delegatee)
 task("delegate", "Delegating to ERC20Votes contract")
@@ -26,7 +26,7 @@ task("delegate", "Delegating to ERC20Votes contract")
     logTransaction(hre, txn);
   });
 
-task("mint", "Minting token ")
+task("mint", "Minting token")
   .addOptionalParam("contract", "token contract address")
   .addOptionalParam("address", "address of recipient")
   .addOptionalParam("amount", "amount to be minted")
@@ -38,6 +38,31 @@ task("mint", "Minting token ")
     }
 
     const txn = await mint(hre, contractAddress as AddressLike, taskArgs.address, taskArgs.amount);
+
+    logTransaction(hre, txn);
+  });
+
+task("vote", "Voting proposal")
+  .addOptionalParam("signer", "signer address")
+  .addOptionalParam("contract", "token contract address")
+  .addOptionalParam("proposal", "proposal")
+  .addOptionalParam("amount", "vote amount")
+  .setAction(async (args, hre: HardhatRuntimeEnvironment) => {
+    const { signer, contract, proposal, amount } = args;
+    const contractAddress = await getContractOrDeployment(hre, contract, "TokenizedBallot");
+
+    console.log(`Voting to proposal index ${proposal} with ${amount} decimal unit...`);
+
+    if (!contractAddress || !ethers.isAddress(contractAddress)) {
+      console.error("Invalid contract Address");
+    }
+
+    const proposalBn = hre.ethers.toBigInt(proposal);
+    const amountBn = hre.ethers.toBigInt(amount);
+
+    const txn = await vote(hre, signer, contractAddress ?? "", proposalBn, amountBn);
+
+    console.log("Voted!");
 
     logTransaction(hre, txn);
   });
