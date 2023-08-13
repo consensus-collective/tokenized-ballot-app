@@ -68,11 +68,11 @@ demo:
 $ npx hardhat vote --network sepolia
 
 {
-  hash: '0x7789cdb736a881da0a8cb30833c811d61847482aa74ecc83ac65b99ba47cbc7e',
-  block: null,
-  from: '0xb66c6D8d96fAa683A4eb2Cb4b854f7bB2295e01E',
-  to: '0x1453b498C84875C4cB73A8228Df393475b0535C1',
-  explorerURL: 'https://sepolia.etherscan.io/tx/0x7789cdb736a881da0a8cb30833c811d61847482aa74ecc83ac65b99ba47cbc7e'
+  hash: '0x5626da5c9dcacb166ac757f0b048a45ab39f33caaa48886bd7c3a628695ad50d',
+  block: 4074123,
+  from: '0x47fd2c10B62716348fc4E4052f870930946C0a19',
+  to: '0x54346322023f663b1c1B77A704f5AD273Ca4AfBc',
+  explorerURL: 'https://sepolia.etherscan.io/tx/0x5626da5c9dcacb166ac757f0b048a45ab39f33caaa48886bd7c3a628695ad50d'
 }
 ```
 
@@ -83,9 +83,59 @@ demo:
 
 ```bash
 $ npx hardhat record --network sepolia
+
+Running on network sepolia...
+
+Total accounts: 3
+Deployer: 0x33Cb9c62131915C86DFfCb5C853379865Ae7379d
+Account1: 0xD22C7a03d8a7f55916A1DF0ae3840B82B46216ae
+Account2: 0x47fd2c10B62716348fc4E4052f870930946C0a19
+
+Deploying token contract...
+Token contract deployed at 0x67d57C377a1812dd7B8F1EE176ae115FfC66eb78!
+
+Minting...
+Minted 1000000000000000000 decimal units to deployer!
+Minted 1000000000000000000 decimal units to account1!
+Minted 1000000000000000000 decimal units to account2!
+
+Self delegating...
+deployer is delegated!
+account1 is delegated!
+account2 is delegated!
+
+Voter is delegating to delegator...
+Voter: 0xD22C7a03d8a7f55916A1DF0ae3840B82B46216ae (account1)
+Delegator: 0x47fd2c10B62716348fc4E4052f870930946C0a19 (account2)
+Delegated!
+
+Deploying ballot contract...
+Ballot contract deployed at 0x54346322023f663b1c1B77A704f5AD273Ca4AfBc
+
+Voting all proposals with the random amount of decimal units...
+Voter: 0x33Cb9c62131915C86DFfCb5C853379865Ae7379d (deployer)
+Voting Power: 1000000000000000000 decimal units
+Voted CAT with 271000000000000000 decimal units!
+Voted FISH with 494000000000000000 decimal units!
+Voted DOG with 214000000000000000 decimal units!
+
+Voting all proposals with the same amount of decimal units...
+Voter: 0x47fd2c10B62716348fc4E4052f870930946C0a19 (account2)
+Voting Power: 2000000000000000000 decimal units
+Voted CAT with 666666666666666666 decimal units!
+Voted FISH with 666666666666666666 decimal units!
+Voted DOG with 666666666666666666 decimal units!
+
+Voting a random proposal...
+Voter: 0xD22C7a03d8a7f55916A1DF0ae3840B82B46216ae (account1)
+Voting Power: 0 decimal units
+Vote DOG with 1000000000000000000 decimal units is rejected!
+
+Winner: FISH
+TotalVote: 1160666666666666666
 ```
 
-The [result](records.json) will be recorded at `records.json`s
+The [result](records.json) will be recorded at `records.json`
 
 ## Test ang Coverage
 
