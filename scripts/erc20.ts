@@ -2,6 +2,10 @@ import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { AddressLike } from "./types";
 import { BigNumberish } from "ethers";
 
+interface Argument {
+  contract: string
+}
+
 export async function delegate(
   hre: HardhatRuntimeEnvironment,
   contractAddress: AddressLike,
@@ -29,4 +33,19 @@ export async function mint(
   await txn.wait(1);
 
   return txn;
+}
+
+export async function getWinningProposal(args: Argument, hre: HardhatRuntimeEnvironment) {
+  const contractAddress = args.contract
+  const contract = await hre.ethers.getContractAt('TokenizedBallotV2', contractAddress)
+  const winningProposal = await contract.winningProposal().then((idx) => contract.proposals(idx))
+
+  if (winningProposal.voteCount <= 0n) {
+    return undefined
+  }
+
+  return {
+    winner: hre.ethers.decodeBytes32String(winningProposal.name),
+    count: winningProposal.voteCount,
+  }
 }
