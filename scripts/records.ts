@@ -30,7 +30,7 @@ const RECEIPTS: Receipt[] = [];
 const RECORD = {
   network: "localhost",
   receipts: RECEIPTS,
-  winner: { name: "none", totalVote: "0" },
+  winner: { name: "none", index: -1, totalVote: "0" },
 };
 
 export async function record(args: any, hre: HardhatRuntimeEnvironment) {
@@ -351,6 +351,7 @@ export async function record(args: any, hre: HardhatRuntimeEnvironment) {
 
     RECORD.winner = {
       name: winnerName,
+      index: PROPOSALS.indexOf(winnerName),
       totalVote: proposal.voteCount.toString(),
     };
   }
