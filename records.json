@@ -216,7 +216,7 @@
       "params": {
         "proposal": {
           "name": "FISH",
-          "index": 1 
+          "index": 1
         },
         "amount": "666666666666666666"
       },
@@ -264,6 +264,7 @@
   ],
   "winner": {
     "name": "FISH",
+    "index": 2,
     "totalVote": "1160666666666666666"
   }
 }

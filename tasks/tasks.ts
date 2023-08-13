@@ -1,4 +1,4 @@
-import { task } from "hardhat/config";
+import { task, types } from "hardhat/config";
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { ethers } from "ethers";
 import { getContractOrDeployment } from "../utils/contract";
@@ -6,7 +6,7 @@ import { delegate, mint } from "../scripts/erc20";
 import { AddressLike } from "../scripts/types";
 import { logTransaction } from "../utils";
 import { record } from "../scripts/records";
-import { vote } from "../scripts/tokenized-ballot";
+import { vote, votingPower } from "../scripts/tokenized-ballot";
 
 task("record", "Running a complete tokenized ballot system").setAction(record);
 
@@ -43,26 +43,14 @@ task("mint", "Minting token")
   });
 
 task("vote", "Voting proposal")
-  .addOptionalParam("signer", "signer address")
-  .addOptionalParam("contract", "token contract address")
-  .addOptionalParam("proposal", "proposal")
-  .addOptionalParam("amount", "vote amount")
-  .setAction(async (args, hre: HardhatRuntimeEnvironment) => {
-    const { signer, contract, proposal, amount } = args;
-    const contractAddress = await getContractOrDeployment(hre, contract, "TokenizedBallot");
+  .addOptionalParam("signer", "Signer address", ethers.ZeroAddress, types.string)
+  .addOptionalParam("contract", "Ballot contract address", ethers.ZeroAddress, types.string)
+  .addOptionalParam("proposal", "Proposal index", "0", types.string)
+  .addOptionalParam("amount", "Vote amount", "0", types.string)
+  .setAction(vote);
 
-    console.log(`Voting to proposal index ${proposal} with ${amount} decimal unit...`);
+task("voting-power", "Account voting power")
+  .addOptionalParam("contract", "Ballot contract address", ethers.ZeroAddress, types.string)
+  .addOptionalParam("address", "Account address", ethers.ZeroAddress, types.string)
+  .setAction(votingPower);
 
-    if (!contractAddress || !ethers.isAddress(contractAddress)) {
-      console.error("Invalid contract Address");
-    }
-
-    const proposalBn = hre.ethers.toBigInt(proposal);
-    const amountBn = hre.ethers.toBigInt(amount);
-
-    const txn = await vote(hre, signer, contractAddress ?? "", proposalBn, amountBn);
-
-    console.log("Voted!");
-
-    logTransaction(hre, txn);
-  });
