@@ -1,7 +1,8 @@
 import fs from "fs";
 
-import { ethers } from "hardhat";
+import { ethers } from "ethers";
 import { MyToken__factory, TokenizedBallot__factory } from "../typechain-types";
+import { HardhatRuntimeEnvironment } from "hardhat/types";
 
 enum Status {
   SUCCESS = "SUCCESS",
@@ -29,10 +30,14 @@ const RECEIPTS: Receipt[] = [];
 const RECORD = {
   network: "localhost",
   receipts: RECEIPTS,
-  winner: { name: "none", totalVote: "0" },
+  winner: { name: "none", index: -1, totalVote: "0" },
 };
 
-async function main() {
+export async function record(args: any, hre: HardhatRuntimeEnvironment) {
+  const { ethers, run } = hre;
+
+  await run("compile");
+
   const allAccounts = await ethers.getSigners();
   const accounts = allAccounts.slice(0, 3);
   const [deployer, account1, account2] = accounts;
@@ -43,6 +48,10 @@ async function main() {
   console.log(`Deployer: ${deployer.address}`);
   console.log(`Account1: ${account1?.address}`);
   console.log(`Account2: ${account2?.address}\n`);
+
+  // Explorer URL
+  const baseURL = `https://${network.name}.etherscan.io/tx`;
+  const isLocal = network.name === "localhost" || network.name === "hardhat";
 
   RECORD.network = network.name;
 
@@ -63,96 +72,80 @@ async function main() {
   console.log(`Minting...`);
 
   const connectedContract = tokenContract.connect(deployer);
-  const mintingReceipts = await Promise.all(
-    accounts.map(async (account, idx) => {
-      const address = account.address;
-      const accountName = idx === 0 ? "deployer" : `account${idx}`;
-      const mint = connectedContract.mint(address, MINT_VALUE);
-      const txReceipt = await mint.then((contract) => contract.wait()).catch((err: Error) => err.message);
-      const receipt: Receipt = {
-        name: "mint",
-        from: {
-          name: "deployer",
-          address: deployer.address,
-        },
-        to: tokenContractAddress,
-        params: {
-          account: { name: accountName, address },
-          amount: MINT_VALUE.toString(),
-        },
-        status: Status.SUCCESS,
-      };
+  for (let i = 0; i < accounts.length; i++) {
+    const account = accounts[i];
+    const address = account.address;
+    const accountName = i === 0 ? "deployer" : `account${i}`;
+    const mint = connectedContract.mint(address, MINT_VALUE);
+    const txReceipt = await mint.then((contract) => contract.wait()).catch((err: Error) => err.message);
+    const receipt: Receipt = {
+      name: "mint",
+      from: {
+        name: "deployer",
+        address: deployer.address,
+      },
+      to: tokenContractAddress,
+      params: {
+        account: { name: accountName, address },
+        amount: MINT_VALUE.toString(),
+      },
+      status: Status.SUCCESS,
+    };
 
-      if (typeof txReceipt === "string" || !txReceipt) {
-        receipt.status = Status.FAILED;
-        receipt.reason = !txReceipt ? "Error" : txReceipt;
-        return receipt;
-      }
-
-      let explorer = "";
-      if (!(network.name === "localhost" || network.name === "hardhat")) {
-        explorer = `https://${network.name}.etherscan.io/tx/${txReceipt.hash}`;
-      }
-
+    if (typeof txReceipt === "string" || !txReceipt) {
+      receipt.status = Status.FAILED;
+      receipt.reason = !txReceipt ? "Error" : txReceipt;
+      console.log("Failed to mint!");
+    } else {
       receipt.hash = txReceipt.hash;
       receipt.blockNumber = txReceipt.blockNumber;
-      receipt.explorerURL = explorer;
-      return receipt;
-    })
-  );
+      receipt.explorerURL = isLocal ? "" : `${baseURL}/${txReceipt.hash}`;
+      console.log(`Minted ${MINT_VALUE} decimal units to ${accountName}!`);
+    }
 
-  console.log(`Minted ${MINT_VALUE} decimal units!\n`);
-
-  RECEIPTS.push(...mintingReceipts);
+    RECEIPTS.push(receipt);
+  }
 
   // Delegating
-  console.log("Self delegating...");
+  console.log("\nSelf delegating...");
 
-  const delegateRecipt = await Promise.all(
-    accounts.map(async (account, idx) => {
-      const address = account.address;
-      const accountName = idx === 0 ? "deployer" : `account${idx}`;
-      const connectedContract = tokenContract.connect(account);
-      const delegate = connectedContract.delegate(address);
-      const txReceipt = await delegate.then((contract) => contract.wait()).catch((error: Error) => error.message);
-      const receipt: Receipt = {
-        name: "delegate (self delegate)",
-        from: {
-          name: accountName,
-          address: account.address,
-        },
-        to: tokenContractAddress,
-        params: {
-          account: { name: accountName, address },
-        },
-        status: Status.SUCCESS,
-      };
+  for (let i = 0; i < accounts.length; i++) {
+    const account = accounts[i];
+    const address = account.address;
+    const accountName = i === 0 ? "deployer" : `account${i}`;
+    const connectedContract = tokenContract.connect(account);
+    const delegate = connectedContract.delegate(address);
+    const txReceipt = await delegate.then((contract) => contract.wait()).catch((error: Error) => error.message);
+    const receipt: Receipt = {
+      name: "delegate (self delegate)",
+      from: {
+        name: accountName,
+        address: account.address,
+      },
+      to: tokenContractAddress,
+      params: {
+        account: { name: accountName, address },
+      },
+      status: Status.SUCCESS,
+    };
 
-      if (typeof txReceipt === "string" || !txReceipt) {
-        receipt.reason = !txReceipt ? "Error" : txReceipt;
-        receipt.status = Status.FAILED;
-        return receipt;
-      }
-
-      let explorer = "";
-      if (!(network.name === "localhost" || network.name === "hardhat")) {
-        explorer = `https://${network.name}.etherscan.io/tx/${txReceipt.hash}`;
-      }
-
+    if (typeof txReceipt === "string" || !txReceipt) {
+      receipt.reason = !txReceipt ? "Error" : txReceipt;
+      receipt.status = Status.FAILED;
+      console.log("Failed to self delegate!");
+    } else {
       receipt.hash = txReceipt.hash;
       receipt.blockNumber = txReceipt.blockNumber;
-      receipt.explorerURL = explorer;
-      return receipt;
-    })
-  );
+      receipt.explorerURL = isLocal ? "" : `${baseURL}/${txReceipt.hash}`;
+      console.log(`${accountName} is delegated!`);
+    }
 
-  console.log(`Delegated!\n`);
-
-  RECEIPTS.push(...delegateRecipt);
+    RECEIPTS.push(receipt);
+  }
 
   if (accounts.length == 3) {
     // Account 1 delegate to account 2
-    console.log(`Voter is delegating to delegator...`);
+    console.log(`\nVoter is delegating to delegator...`);
     console.log(`Voter: ${account1.address} (account1)`);
     console.log(`Delegator: ${account2.address} (account2)`);
 
@@ -178,20 +171,15 @@ async function main() {
     if (typeof txReceipt === "string" || !txReceipt) {
       receipt.status = Status.FAILED;
       receipt.reason = !txReceipt ? "Error" : txReceipt;
-      RECEIPTS.push(receipt);
+      console.log("Failed to delegate!");
     } else {
-      let explorer = "";
-      if (!(network.name === "localhost" || network.name === "hardhat")) {
-        explorer = `https://${network.name}.etherscan.io/tx/${txReceipt.hash}`;
-      }
-
       receipt.hash = txReceipt.hash;
       receipt.blockNumber = txReceipt.blockNumber;
-      receipt.explorerURL = explorer;
-      RECEIPTS.push(receipt);
+      receipt.explorerURL = isLocal ? "" : `${baseURL}/${txReceipt.hash}`;
+      console.log("Delegated!");
     }
 
-    console.log("Delegated!\n");
+    RECEIPTS.push(receipt);
   }
 
   // Parameter
@@ -199,7 +187,7 @@ async function main() {
   const blockNumber = await ethers.provider.getBlockNumber();
 
   // Deploy ballot contract
-  console.log("Deploying ballot contract...");
+  console.log("\nDeploying ballot contract...");
 
   const ballotContract = await ballotFactory
     .deploy(proposals, tokenContractAddress, BigInt(blockNumber))
@@ -251,21 +239,15 @@ async function main() {
     if (typeof txReceipt === "string" || !txReceipt) {
       receipt.status = Status.FAILED;
       receipt.reason = !txReceipt ? "Error" : txReceipt;
-      RECEIPTS.push(receipt);
-      continue;
+      console.log(`Vote ${PROPOSALS[i]} with ${MINT_VALUE} decimal units is rejected!\n`);
+    } else {
+      receipt.hash = txReceipt.hash;
+      receipt.blockNumber = txReceipt.blockNumber;
+      receipt.explorerURL = isLocal ? "" : `${baseURL}/${txReceipt.hash}`;
+      console.log(`Voted ${proposalName} with ${amount} decimal units!`);
     }
 
-    let explorer = "";
-    if (!(network.name === "localhost" || network.name === "hardhat")) {
-      explorer = `https://${network.name}.etherscan.io/tx/${txReceipt.hash}`;
-    }
-
-    receipt.hash = txReceipt.hash;
-    receipt.blockNumber = txReceipt.blockNumber;
-    receipt.explorerURL = explorer;
     RECEIPTS.push(receipt);
-
-    console.log(`Voted ${proposalName} with ${amount} decimal units!`);
   }
 
   console.log("");
@@ -281,55 +263,47 @@ async function main() {
     const total = BigInt(PROPOSALS.length);
     const amount = votingPower / total;
 
-    const receipts = await Promise.all(
-      PROPOSALS.map(async (_, idx) => {
-        const txReceipt = await ballotContract
-          .connect(account2)
-          .vote(idx, amount)
-          .then((contract) => contract.wait())
-          .catch((error: Error) => error.message);
+    for (let i = 0; i < PROPOSALS.length; i++) {
+      const proposalName = PROPOSALS[i];
+      const txReceipt = await ballotContract
+        .connect(account2)
+        .vote(i, amount)
+        .then((contract) => contract.wait())
+        .catch((error: Error) => error.message);
 
-        const receipt: Receipt = {
-          name: "vote",
-          from: {
-            name: "account2",
-            address: account2.address,
-          },
-          to: ballotContractAddress,
-          params: {
-            proposalIndex: idx,
-            amount: amount.toString(),
-          },
-          status: Status.SUCCESS,
-        };
+      const receipt: Receipt = {
+        name: "vote",
+        from: {
+          name: "account2",
+          address: account2.address,
+        },
+        to: ballotContractAddress,
+        params: {
+          proposal: { name: proposalName, index: i },
+          amount: amount.toString(),
+        },
+        status: Status.SUCCESS,
+      };
 
-        if (typeof txReceipt === "string" || !txReceipt) {
-          receipt.status = Status.FAILED;
-          receipt.reason = !txReceipt ? "Error" : txReceipt;
-          return receipt;
-        }
-
-        let explorer = "";
-        if (!(network.name === "localhost" || network.name === "hardhat")) {
-          explorer = `https://${network.name}.etherscan.io/tx/${txReceipt.hash}`;
-        }
-
+      if (typeof txReceipt === "string" || !txReceipt) {
+        receipt.status = Status.FAILED;
+        receipt.reason = !txReceipt ? "Error" : txReceipt;
+        console.log(`Vote ${PROPOSALS[i]} with ${MINT_VALUE} decimal units is rejected!\n`);
+      } else {
         receipt.hash = txReceipt.hash;
         receipt.blockNumber = txReceipt.blockNumber;
-        receipt.explorerURL = explorer;
-        return receipt;
-      })
-    );
+        receipt.explorerURL = isLocal ? "" : `${baseURL}/${txReceipt.hash}`;
+        console.log(`Voted ${proposalName} with ${amount} decimal units!`);
+      }
 
-    console.log(`Voted all proposals with ${amount} decimal units!\n`);
-
-    RECEIPTS.push(...receipts);
+      RECEIPTS.push(receipt);
+    }
   }
 
   // Rejected vote by account 1
   const votingPower1 = await ballotContract.votingPower(account1.address);
 
-  console.log(`Voting a random proposal...`);
+  console.log(`\nVoting a random proposal...`);
   console.log(`Voter: ${account1.address} (account1)`);
   console.log(`Voting Power: ${votingPower1.toString()} decimal units`);
 
@@ -357,22 +331,15 @@ async function main() {
   if (typeof txReceipt === "string" || !txReceipt) {
     receipt.status = Status.FAILED;
     receipt.reason = !txReceipt ? "Error" : txReceipt;
-    RECEIPTS.push(receipt);
-
     console.log(`Vote ${PROPOSALS[idx]} with ${MINT_VALUE} decimal units is rejected!\n`);
   } else {
-    let explorer = "";
-    if (!(network.name === "localhost" || network.name === "hardhat")) {
-      explorer = `https://${network.name}.etherscan.io/tx/${txReceipt.hash}`;
-    }
-
     receipt.hash = txReceipt.hash;
     receipt.blockNumber = txReceipt.blockNumber;
-    receipt.explorerURL = explorer;
-    RECEIPTS.push(receipt);
-
+    receipt.explorerURL = isLocal ? "" : `${baseURL}/${txReceipt.hash}`;
     console.log(`Voted ${PROPOSALS[idx]} with ${MINT_VALUE} decimal units!\n`);
   }
+
+  RECEIPTS.push(receipt);
 
   const winningProposal = await ballotContract.winningProposal();
   const proposal = await ballotContract.proposals(winningProposal);
@@ -384,6 +351,7 @@ async function main() {
 
     RECORD.winner = {
       name: winnerName,
+      index: PROPOSALS.indexOf(winnerName),
       totalVote: proposal.voteCount.toString(),
     };
   }
@@ -393,8 +361,3 @@ async function main() {
   const records = JSON.stringify(RECORD, null, 2);
   fs.writeFileSync("records.json", records);
 }
-
-main().catch((err) => {
-  console.log(err);
-  process.exit(1);
-});
